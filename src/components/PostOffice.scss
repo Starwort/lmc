@@ -1,0 +1,33 @@
+div {
+    &.hud {
+        width: 100%;
+        display: grid;
+        grid:
+            "ACC PC IR"
+            "INP INP AR";
+        grid-template-columns: 33.3% 33.4% 33.3%;
+        & > div {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-direction: row;
+            padding-left: 4px;
+        }
+        div.acc {
+            grid-area: ACC;
+        }
+        div.pc {
+            grid-area: PC;
+        }
+        div.ar {
+            grid-area: AR;
+        }
+        div.ir {
+            grid-area: IR;
+        }
+        div.input-field {
+            grid-area: INP;
+            padding-right: 4px;
+        }
+    }
+}
