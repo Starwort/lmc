@@ -38,7 +38,7 @@ function App() {
     window.output = output;
     const [awaitingInput, setAwaitingInput] = React.useState(false);
     window.awaitingInput = awaitingInput;
-    const [instant, setInstant] = React.useState(false);
+    const [instant, setInstantImpl] = React.useState(false);
     window.instant = instant;
     function setMailBox(mailbox: number, value: number) {
         let newMailBoxes = [...mailBoxes];
@@ -133,11 +133,20 @@ function App() {
                 setRunning(false);
         }
     }
+    function setInstant(value: boolean) {
+        window.instant = value;
+        setInstantImpl(value);
+        if (window.timeoutID) {
+            window.clearInterval(window.timeoutID);
+            window.timeoutID = window.setInterval(step, window.instant ? 0 : 2000);
+        }
+    }
     function setRunning(value: boolean) {
         window.running = value;
         setRunningImpl(value);
         if (window.timeoutID) {
             window.clearInterval(window.timeoutID);
+            window.timeoutID = undefined;
         }
         if (value) {
             // if (instant) {
@@ -145,7 +154,7 @@ function App() {
             // } else {
             //     window.timeoutID = window.setInterval(step, 500);
             // }
-            window.timeoutID = window.setInterval(step, instant ? 0 : 2000);
+            window.timeoutID = window.setInterval(step, window.instant ? 0 : 2000);
         }
     }
     function doneAwaiting() {
