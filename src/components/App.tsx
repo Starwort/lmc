@@ -42,8 +42,11 @@ function App() {
     window.instant = instant;
     function setMailBox(mailbox: number, value: number) {
         let newMailBoxes = [...mailBoxes];
-        newMailBoxes[mailbox] = value;
+        newMailBoxes[mailbox] = clampValue(value);
         setMailBoxes(newMailBoxes);
+    }
+    function clampValue(value: number) {
+        return (value + 999 + 1999) % 1999 - 999;
     }
     const [pc, setPC] = React.useState(0);
     window.pc = pc;
@@ -75,15 +78,16 @@ function App() {
                 setRunning(false);
                 return;
             case 1:
-                window.acc = window.acc + window.mailBoxes[arg];
+                window.acc = clampValue(window.acc + window.mailBoxes[arg]);
                 setAcc(window.acc);
                 break;
             case 2:
-                window.acc = window.acc - window.mailBoxes[arg];
+                window.acc = clampValue(window.acc - window.mailBoxes[arg]);
                 setAcc(window.acc);
                 break;
             case 3:
                 window.mailBoxes[arg] = window.acc;
+                setMailBox(arg, window.acc)
                 break;
             case 5:
                 window.acc = window.mailBoxes[arg];
