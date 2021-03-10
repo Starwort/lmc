@@ -22,6 +22,7 @@ interface PostOfficeProps {
 
 function PostOffice(props: PostOfficeProps) {
     const [accOpen, setAccOpen] = React.useState(false);
+    const [pcOpen, setPcOpen] = React.useState(false);
     const [error, setError] = React.useState(false);
     const [detailedErrorText, setDetailedErrorText] = React.useState('');
     const [newAcc, setNewAcc] = React.useState(0);
@@ -63,14 +64,14 @@ function PostOffice(props: PostOfficeProps) {
             <div className="pc">
                 Program Counter: <MailBox
                     value={props.pc}
-                    setDialogueOpen={setAccOpen}
+                    setDialogueOpen={setPcOpen}
                     hideSign
                     pad={2}
                     dialogue={
                         <MiscValueDialogue
                             setValue={props.setPC}
-                            open={accOpen}
-                            setOpen={setAccOpen}
+                            open={pcOpen}
+                            setOpen={setPcOpen}
                             name="Program Counter"
                         />
                     }
